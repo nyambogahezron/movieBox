@@ -13,18 +13,25 @@ import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import { styles, theme } from '@/theme';
 import { useNavigation } from 'expo-router';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MovieCasts from '@/components/MovieCasts';
 
 const { width, height } = Dimensions.get('window');
-const ios = Platform.OS == 'ios';
+const ios = Platform.OS === 'ios';
 const topMargin = ios ? '' : 'mt-3';
+
+interface RouteParams {
+  params: {
+    item: object;
+  };
+}
 
 export default function MovieScreen() {
   const navigation = useNavigation();
-  const { params: item } = useRoute();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { params: item } = useRoute<RouteProp<RouteParams, 'params'>>();
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
@@ -48,7 +55,7 @@ export default function MovieScreen() {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
             <HeartIcon
-              size={35}
+              size={35} 
               color={isFavorite ? theme.background : 'white'}
             />
           </TouchableOpacity>
