@@ -16,6 +16,7 @@ import { useNavigation } from 'expo-router';
 import { useRoute, RouteProp } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MovieCasts from '@/components/MovieCasts';
+import MovieList from '@/components/MovieList';
 
 const { width, height } = Dimensions.get('window');
 const ios = Platform.OS === 'ios';
@@ -31,15 +32,16 @@ export default function MovieScreen() {
   const navigation = useNavigation();
   const { params: item } = useRoute<RouteProp<RouteParams, 'params'>>();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [cast, setCast] = useState([1, 2, 3, 4]);
+  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4]);
 
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
       className='flex-1 bg-neutral-900'
     >
-      {/* header / back-button  */}
-
       <View className='w-full'>
+        {/* header / back-button  */}
         <SafeAreaView
           className={
             'absolute z-20 w-full flex-row justify-between items-center px-4' +
@@ -55,7 +57,7 @@ export default function MovieScreen() {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
             <HeartIcon
-              size={35} 
+              size={35}
               color={isFavorite ? theme.background : 'white'}
             />
           </TouchableOpacity>
@@ -108,7 +110,14 @@ export default function MovieScreen() {
       </View>
 
       {/* casts  */}
-      <MovieCasts />
+      <MovieCasts navigation={navigation} cast={cast} />
+
+      {/* similar movies list  */}
+      <MovieList
+        title='Similar Movies'
+        hideSeeAll={true}
+        data={similarMovies}
+      />
     </ScrollView>
   );
 }
