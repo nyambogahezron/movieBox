@@ -6,31 +6,35 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
-import Carousel from 'react-native-snap-carousel';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import Carousel from 'react-native-reanimated-carousel';
 
 const { width, height } = Dimensions.get('window');
 
 export default function TrendingMovies({ data }) {
   const navigation = useNavigation();
 
-  const handleClick = ({item}) => {
-    navigation.navigate('Movie', item);
+  const handleClick = ({ item }) => {
+    router.push({
+      pathname: '/(home)/movies',
+      params: { item: JSON.stringify(item) },
+    });
   };
 
   return (
     <View className='mb-8'>
       <Text className='text-white text-xl mx-4 mb-5'>Trending</Text>
+
       <Carousel
-        data={data}
+        loop
+        width={width * 0.62}
+        height={width / 2}
+        autoPlay={true}
+        data={[...new Array(6).keys()]}
+        scrollAnimationDuration={2000}
         renderItem={({ item }) => (
           <MovieCard item={item} handleClick={handleClick} />
         )}
-        firstItem={1}
-        slideWidth={width}
-        inactiveSlideOpacity={0.6}
-        itemWidth={width * 0.62}
-        slideStyle={{ display: 'flex', alignItem: 'center' }}
       />
     </View>
   );
@@ -40,7 +44,9 @@ const MovieCard = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image
-        source={require('')}
+        source={{
+          uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+        }}
         style={{
           width: width * 0.6,
           height: height * 0.4,

@@ -22,7 +22,12 @@ export default function MovieCasts({ cast, navigation }) {
                 key={index}
               >
                 <View className='overflow-hidden rounded-full h-20 w-20 border border-neutral-500'>
-                  <Image src={require('')} className='rounded-full h-24 w-20' />
+                  <Image
+                    source={{
+                      uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+                    }}
+                    className='rounded-full h-24 w-20'
+                  />
                 </View>
                 <Text className='text-white text-xs mt-1'>
                   {characterName.length > 10

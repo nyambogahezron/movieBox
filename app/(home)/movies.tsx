@@ -64,7 +64,9 @@ export default function MovieScreen() {
         </SafeAreaView>
         <View>
           <Image
-            source={require('')}
+            source={{
+              uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+            }}
             style={{ width, height: height * 0.55 }}
           />
           <LinearGradient

@@ -57,7 +57,9 @@ export default function SearchScreen() {
                     <Image
                       className='rounded-3xl'
                       style={{ width: width * 0.44, height: height * 0.3 }}
-                      source={require('')}
+                      source={{
+                        uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+                      }}
                     />
                     <Text className='text-neutral-400 ml-1'>
                       {movieName.length > 22
@@ -72,7 +74,12 @@ export default function SearchScreen() {
         </ScrollView>
       ) : (
         <View className='flex-row justify-center'>
-          <Image source={require('')} className='h-96 w-96' />{' '}
+          <Image
+            source={{
+              uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+            }}
+            className='h-96 w-96'
+          />{' '}
         </View>
       )}
     </SafeAreaView>

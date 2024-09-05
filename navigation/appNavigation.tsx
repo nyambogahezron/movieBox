@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '@/screens/HomeScreen';
-import MovieScreen from '@/screens/MovieScreen';
-import CastScreen from '@/screens/CastScreen';
-import SearchScreen from '@/screens/SearchScreen';
+import HomeScreen from '@/app';
+import MovieScreen from '@/app/(home)/movies';
+import CastScreen from '@/app/(home)/cast';
+import SearchScreen from '@/app/(home)/search';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,7 +11,7 @@ export default function AppNavigation() {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen
             name='Home'
             options={{ headerShown: false }}

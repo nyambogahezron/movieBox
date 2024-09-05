@@ -61,7 +61,9 @@ export default function CastScreen() {
         >
           <View className='overflow-hidden rounded-full h-72 w-72 border-2 border-neutral-500'>
             <Image
-              src={require('')}
+              source={{
+                uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+              }}
               className='rounded-full h-24 w-20'
               style={{ height: height * 0.43, width: width * 0.75 }}
             />
