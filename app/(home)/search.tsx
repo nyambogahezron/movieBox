@@ -8,16 +8,15 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { XMarkIcon } from 'react-native-heroicons/outline';
+import { router } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
 export default function SearchScreen() {
   const [searchResults, setSearchResults] = useState([1, 2, 3, 4]);
-  const navigation = useNavigation();
   const movieName = 'Movie Name';
   return (
     <SafeAreaView className='bg-neutral-800 flex-1'>
@@ -28,7 +27,7 @@ export default function SearchScreen() {
           className='pb-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider'
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => router.push('/')}
           className='rounded-full p-3 m-1 bg-neutral-500'
         >
           <XMarkIcon size='25' color='white' />
@@ -51,7 +50,12 @@ export default function SearchScreen() {
               return (
                 <TouchableWithoutFeedback
                   key={index}
-                  onPress={() => navigation.push('Movies', item)}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/',
+                      params: { item: JSON.stringify(item) },
+                    })
+                  }
                 >
                   <View className='space-y-3 mb-4'>
                     <Image
