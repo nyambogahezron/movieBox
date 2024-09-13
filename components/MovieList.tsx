@@ -19,7 +19,7 @@ interface MovieListProps {
   hideSeeAll?: boolean;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ title, data, hideSeeAll }) => {
+const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
   const movieName = 'Movie name';
 
   return (
@@ -37,6 +37,7 @@ const MovieList: React.FC<MovieListProps> = ({ title, data, hideSeeAll }) => {
 
       {/* movie row  */}
       <ScrollView
+      scrollIndicatorInsets={{ right: 1 }}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -50,13 +51,14 @@ const MovieList: React.FC<MovieListProps> = ({ title, data, hideSeeAll }) => {
                 params: { item: JSON.stringify(item) },
               })
             }
+            className='p-1 border border-gray-600'
           >
             <View>
               <Image
                 source={{
-                  uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KtsQGuRcs9FYnOGb2OuzwWFShhAQSqSpdQ&s',
                 }}
-                className='rounded-3xl'
+                className='rounded-lg'
                 style={{ width: width * 0.33, height: height * 0.22 }}
               />
               <Text className='text-neutral-300 ml-1'>

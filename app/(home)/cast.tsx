@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from 'expo-router';
+import { Stack, useNavigation } from 'expo-router';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import { styles, theme } from '@/theme';
@@ -27,6 +27,7 @@ export default function CastScreen() {
       className='flex-1 bg-neutral-900'
       contentContainerStyle={{ paddingBottom: 20 }}
     >
+      <Stack.Screen options={{ headerShown: false }} />
       {/* back button  */}
       <SafeAreaView
         className={
@@ -62,7 +63,7 @@ export default function CastScreen() {
           <View className='overflow-hidden rounded-full h-72 w-72 border-2 border-neutral-500'>
             <Image
               source={{
-                uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+                uri: 'https://assets.teenvogue.com/photos/5aa1aac7bc935d60fac02d01/master/pass/originals-tout.jpg',
               }}
               className='rounded-full h-24 w-20'
               style={{ height: height * 0.43, width: width * 0.75 }}
@@ -77,34 +78,29 @@ export default function CastScreen() {
             Kenya
           </Text>
         </View>
-        <View className='mx-3 p-4 mt-6 flex-row justify-between items-center bg-neutral-700 rounded-full'>
+        <View className='mx-3 p-4 mt-6 flex-row justify-between items-center bg-neutral-700 rounded-lg overflow-hidden'>
           <View className='border-r-2 border-neutral-400 px-2 items-center'>
-            <Text className='text-3xl text-white font-bold text-center'>
+            <Text className='text-2xl text-white font-bold text-center'>
               Gender
             </Text>
             <Text className='text-neutral-300 text-sm'>Male</Text>
           </View>
           <View className='border-r-2 border-neutral-400 px-2 items-center'>
-            <Text className='text-3xl text-white font-bold text-center'>
+            <Text className='text-2xl text-white font-bold text-center'>
               Birthday
             </Text>
             <Text className='text-neutral-300 text-sm'>04-08-1990</Text>
           </View>
-          <View className='border-r-2 border-neutral-400 px-2 items-center'>
-            <Text className='text-3xl text-white font-bold text-center'>
+          <View className=' px-2 items-center'>
+            <Text className='text-2xl text-white font-bold text-center'>
               Know For
             </Text>
             <Text className='text-neutral-300 text-sm'>Acting,Singer</Text>
           </View>
-          <View className='px-2 items-center'>
-            <Text className='text-3xl text-white font-bold text-center'>
-              Popularity
-            </Text>
-            <Text className='text-neutral-300 text-sm'>69</Text>
-          </View>
+         
         </View>
         <View className='my-6 mx-4 space-y-2'>
-          <Text className='text-wite text-lg'>Biography</Text>
+          <Text className='text-wite text-lg text-white'>Biography</Text>
           <Text className='text-neutral-400 tracking-wide'>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut id
             iusto ut. Placeat delectus soluta iure assumenda nobis accusamus est

@@ -11,7 +11,7 @@ import {
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { XMarkIcon } from 'react-native-heroicons/outline';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,8 +19,9 @@ export default function SearchScreen() {
   const [searchResults, setSearchResults] = useState([1, 2, 3, 4]);
   const movieName = 'Movie Name';
   return (
-    <SafeAreaView className='bg-neutral-800 flex-1'>
-      <View className='mx-4 flex-row justify-between items-center border border-neutral-500 rounded-full'>
+    <SafeAreaView className='bg-neutral-900 flex-1'>
+      <Stack.Screen options={{ headerShown: false }} />
+      <View className='mx-4 mb-3 mt-4 flex-row justify-between items-center border border-neutral-500 rounded-full'>
         <TextInput
           placeholder='Search Movie'
           placeholderTextColor={'lightgray'}
@@ -40,7 +41,7 @@ export default function SearchScreen() {
         <ScrollView
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15 }}
-          className='space-y-3'
+          className='space-y-2'
         >
           <Text className='text-white font-semibold ml-1'>
             Results ({searchResults.length})

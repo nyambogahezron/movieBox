@@ -1,8 +1,11 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Image } from 'react-native';
+import { router } from 'expo-router';
 
-export default function MovieCasts({ cast, navigation }) {
+type MovieCastsProps = { cast: any };
+
+export default function MovieCasts({ cast }: MovieCastsProps) {
   const castName = 'John Doe';
   const characterName = 'John Doe';
   return (
@@ -17,14 +20,19 @@ export default function MovieCasts({ cast, navigation }) {
           cast.map((person, index) => {
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('Cast', person)}
+                onPress={() =>
+                  router.push({
+                    pathname: '/(home)/cast',
+                    params: { item: JSON.stringify(person) },
+                  })
+                }
                 className='mr-4 items-center'
                 key={index}
               >
                 <View className='overflow-hidden rounded-full h-20 w-20 border border-neutral-500'>
                   <Image
                     source={{
-                      uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
+                      uri: 'https://assets.teenvogue.com/photos/5aa1aac7bc935d60fac02d01/master/pass/originals-tout.jpg',
                     }}
                     className='rounded-full h-24 w-20'
                   />
