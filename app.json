@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "movieBox",
-    "slug": "movieBox",
+    "name": "Movie Box",
+    "slug": "MovieBox",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,18 +19,26 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hezron.movieBox"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router"
-    ],
+    "plugins": ["expo-router"],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ab8ef381-0599-403e-912b-c1def8243448"
+      }
+    },
+    "owner": "hezron"
   }
 }
