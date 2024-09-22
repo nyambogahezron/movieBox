@@ -30,6 +30,9 @@ const HomeScreen = () => {
       <StatusBar backgroundColor='#1D2125' style='light' />
       <Stack.Screen
         options={{
+          headerStyle: {
+            backgroundColor: '#1D2125',
+          },
           headerShown: true,
           headerTitleAlign: 'center',
           headerShadowVisible: false,
@@ -58,7 +61,6 @@ const HomeScreen = () => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => router.push('/(home)/search')}
-              className='mr-5'
             >
               <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
             </TouchableOpacity>

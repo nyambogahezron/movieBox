@@ -28,17 +28,17 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
       <View className='items-center justify-center w-full pb-4'>
         <Carousel
           loop
-          width={width * 0.9}
+          width={width }
           height={height * 0.4}
           autoPlay={true}
           parallax-horizontal
           data={[...new Array(6).keys()]}
           scrollAnimationDuration={2000}
-          renderItem={({ item }) => (
+          renderItem={({ item,index }) => (
             <FlatList
               initialNumToRender={3}
               horizontal
-              // keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item.toString()}
               data={[...new Array(6).keys()]}
               renderItem={({ item }) => (
                 <View className='p-3'>

@@ -42,18 +42,18 @@ export default function MovieScreen() {
           {/* header / back-button  */}
           <View
             className={
-              'absolute z-20 w-full flex-row justify-between items-center px-4' +
+              'absolute top-8 z-20 w-full flex-row justify-between items-center px-4' +
               topMargin
             }
           >
             <TouchableOpacity
               onPress={() => router.back()}
-              style={styles.background}
+              // style={styles.background}
               className='rounded-full p-1'
             >
               <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
+            <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)} className='mr-1'>
               <HeartIcon
                 size={35}
                 color={isFavorite ? theme.background : 'white'}
