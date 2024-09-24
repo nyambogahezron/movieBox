@@ -12,10 +12,12 @@ import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { XMarkIcon } from 'react-native-heroicons/outline';
 import { router, Stack } from 'expo-router';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const { width, height } = Dimensions.get('window');
 
 export default function SearchScreen() {
+  const [loading, setLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([1, 2, 3, 4]);
   const movieName = 'Movie Name';
   return (
@@ -36,7 +38,12 @@ export default function SearchScreen() {
       </View>
 
       {/* search result  */}
-
+  {loading ? (
+        <>
+          <LoadingScreen />
+        </>
+      ) : (
+        <>
       {searchResults.length > 0 ? (
         <ScrollView
           showsHorizontalScrollIndicator={false}
@@ -86,6 +93,8 @@ export default function SearchScreen() {
             className='h-96 w-96'
           />{' '}
         </View>
+      )}
+      </>
       )}
     </SafeAreaView>
   );

@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window');
 
 interface MovieListProps {
   title: string;
-  data: Array<{ id: number; [key: string]: any }>;
+  data: any[];
   hideSeeAll?: boolean;
 }
 

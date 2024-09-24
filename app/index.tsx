@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -14,8 +9,10 @@ import TrendingMovies from '@/components/TrendingMovies';
 import MovieList from '@/components/MovieList';
 import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const HomeScreen = () => {
+  const [loading, setLoading] = useState(false);
   const [trendingData, setTrendingData] = useState([1, 2, 3]);
   const [upcomingData, setUpcomingData] = useState([1, 2, 3]);
   const [topRatedData, setTopRatedData] = useState([1, 2, 3]);
@@ -59,29 +56,32 @@ const HomeScreen = () => {
           ),
 
           headerRight: () => (
-            <TouchableOpacity
-              onPress={() => router.push('/(home)/search')}
-            >
+            <TouchableOpacity onPress={() => router.push('/(home)/search')}>
               <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
             </TouchableOpacity>
           ),
         }}
       />
+      {loading ? (
+        <>
+          <LoadingScreen />
+        </>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        >
+          {/* trending movies carousel */}
+          <TrendingMovies data={trendingData} />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      >
-        {/* trending movies carousel */}
-        <TrendingMovies data={trendingData} />
+          {/* upcoming movies */}
+          <MovieList title='Upcoming Movies' data={upcomingData} />
 
-        {/* upcoming movies */}
-        <MovieList title='Upcoming Movies' data={upcomingData} />
-
-        {/* top rated movies */}
-        <MovieList title='Top rated Movies' data={topRatedData} />
-      </ScrollView>
+          {/* top rated movies */}
+          <MovieList title='Top rated Movies' data={topRatedData} />
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };

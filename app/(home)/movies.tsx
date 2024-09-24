@@ -11,12 +11,13 @@ import {
 import React, { useState } from 'react';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
-import { styles, theme } from '@/theme';
+import {  theme } from '@/theme';
 import { router, Stack } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import MovieCasts from '@/components/MovieCasts';
 import MovieList from '@/components/MovieList';
 import { StatusBar } from 'expo-status-bar';
+import LoadingScreen from '@/components/LoadingScreen';
 
 const { width, height } = Dimensions.get('window');
 const ios = Platform.OS === 'ios';
@@ -29,31 +30,39 @@ interface RouteParams {
 }
 
 export default function MovieScreen() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [cast, setCast] = useState([1, 2, 3, 4]);
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4]);
 
   return (
     <SafeAreaView className='flex-1 bg-neutral-900'>
+      <Stack.Screen options={{ headerShown: false }} />
       <StatusBar backgroundColor='transparent' style='light' />
-      <Stack.Screen options={{headerShown:false}}/>
+        {loading ? (
+        <>
+          <LoadingScreen />
+        </>
+      ) : (
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <View className='w-full'>
           {/* header / back-button  */}
           <View
             className={
-              'absolute top-8 z-20 w-full flex-row justify-between items-center px-4' +
+              'absolute top-10 z-20 w-full flex-row justify-between items-center px-4' +
               topMargin
             }
           >
             <TouchableOpacity
               onPress={() => router.back()}
-              // style={styles.background}
-              className='rounded-full p-1'
+              className='rounded-lg p-1 bg-[#eab308] shadow-lg ml-3'
             >
-              <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
+              <ChevronLeftIcon size={28} strokeWidth={2.5} color='white'/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)} className='mr-1'>
+            <TouchableOpacity
+              onPress={() => setIsFavorite(!isFavorite)}
+              className='mr-1'
+            >
               <HeartIcon
                 size={35}
                 color={isFavorite ? theme.background : 'white'}
@@ -119,6 +128,7 @@ export default function MovieScreen() {
           data={similarMovies}
         />
       </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
