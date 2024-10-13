@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Bars3CenterLeftIcon,
@@ -10,12 +10,48 @@ import MovieList from '@/components/MovieList';
 import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '@/components/LoadingScreen';
+import {
+  getTopRatedMovies,
+  getTrendingMovies,
+  getUpcomingMovies,
+} from '@/api/movieDB';
 
 const HomeScreen = () => {
-  const [loading, setLoading] = useState(false);
-  const [trendingData, setTrendingData] = useState([1, 2, 3]);
-  const [upcomingData, setUpcomingData] = useState([1, 2, 3]);
-  const [topRatedData, setTopRatedData] = useState([1, 2, 3]);
+  const [loading, setLoading] = useState(true);
+  const [trendingData, setTrendingData] = useState([]);
+  const [upcomingData, setUpcomingData] = useState([]);
+  const [topRatedData, setTopRatedData] = useState([]);
+
+  const fetchTrendingMoves = async () => {
+    const data = await getTrendingMovies();
+    // console.log('trending movies data', data);
+    if (data && data.results) {
+      setTrendingData(data.results);
+      setLoading(false);
+    }
+  };
+
+  const fetchUpcomingMovies = async () => {
+    const data = await getUpcomingMovies();
+    if (data && data.results) {
+      setUpcomingData(data.results);
+      setLoading(false);
+    }
+  };
+
+  const fetchTopRatedMovies = async () => {
+    const data = await getTopRatedMovies();
+    if (data && data.results) {
+      setTopRatedData(data.results);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTrendingMoves();
+    fetchUpcomingMovies();
+    fetchTopRatedMovies();
+  }, []);
 
   return (
     <SafeAreaView
@@ -37,7 +73,7 @@ const HomeScreen = () => {
             <View {...props}>
               <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
                 <Text className='text-[#eab308]'>M</Text>
-                ovie
+                ovie Trend
               </Text>
             </View>
           ),
@@ -73,13 +109,17 @@ const HomeScreen = () => {
           contentContainerStyle={{ paddingBottom: 10 }}
         >
           {/* trending movies carousel */}
-          <TrendingMovies data={trendingData} />
+          {trendingData.length > 0 && <TrendingMovies data={trendingData} />}
 
           {/* upcoming movies */}
-          <MovieList title='Upcoming Movies' data={upcomingData} />
-
+          {upcomingData.length > 0 && (
+            <MovieList title='Upcoming Movies' data={upcomingData} />
+          )}
           {/* top rated movies */}
-          <MovieList title='Top rated Movies' data={topRatedData} />
+
+          {topRatedData.length > 0 && (
+            <MovieList title='Top rated Movies' data={topRatedData} />
+          )}
         </ScrollView>
       )}
     </SafeAreaView>

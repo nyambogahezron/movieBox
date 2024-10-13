@@ -4,48 +4,78 @@ import {
   Dimensions,
   Image,
   TouchableWithoutFeedback,
-  FlatList,
 } from 'react-native';
 import { router } from 'expo-router';
 import Carousel from 'react-native-reanimated-carousel';
+import { image500 } from '@/api/movieDB';
+import React from 'react';
 
 const { width, height } = Dimensions.get('window');
 type TrendingMoviesProps = {
   data: any;
 };
+const PAGE_WIDTH = width;
 
+const COUNT = 6;
 export default function TrendingMovies({ data }: TrendingMoviesProps) {
-  const handleClick = ({ item }: any) => {
+  const [isVertical, setIsVertical] = React.useState(false);
+
+  const handleClick = ({ item }: { item: any }) => {
     router.push({
-      pathname: '/(home)/movies',
+      pathname: '/movies',
       params: { item: JSON.stringify(item) },
     });
   };
 
+  const baseOptions = isVertical
+    ? ({
+        vertical: true,
+        width: PAGE_WIDTH,
+        height: PAGE_WIDTH / 2 / COUNT,
+        style: {
+          height: PAGE_WIDTH / 2,
+        },
+      } as const)
+    : ({
+        vertical: false,
+        width: PAGE_WIDTH / COUNT,
+        height: PAGE_WIDTH / 2,
+        style: {
+          width: PAGE_WIDTH,
+          // padding: 10,
+        },
+      } as const);
+
   return (
-    <View className='mb-8'>
+    <View className='mb-4 -'>
       <Text className='text-white text-xl mx-4 mb-5'>Trending</Text>
-      <View className='items-center justify-center w-full pb-4'>
+      <View
+        className='w-full pb-4 items-center justify-center'
+        style={{ width: width }}
+      >
         <Carousel
+          {...baseOptions}
           loop
-          width={width }
+          autoPlayInterval={2500}
+          width={width * 0.9}
           height={height * 0.4}
           autoPlay={true}
           parallax-horizontal
-          data={[...new Array(6).keys()]}
+          mode='parallax'
+          modeConfig={{
+            parallaxScrollingScale: 0.87,
+            parallaxScrollingOffset: 50,
+          }}
+          data={data}
+          windowSize={10}
           scrollAnimationDuration={2000}
-          renderItem={({ item,index }) => (
-            <FlatList
-              initialNumToRender={3}
-              horizontal
-              keyExtractor={(item) => item.toString()}
-              data={[...new Array(6).keys()]}
-              renderItem={({ item }) => (
-                <View className='p-3'>
-                  <MovieCard item={item} handleClick={handleClick} />
-                </View>
-              )}
-            />
+          renderItem={({ item }) => (
+            <View className='p-3 flex-1'>
+              <MovieCard
+                item={item}
+                handleClick={() => handleClick({ item })}
+              />
+            </View>
           )}
         />
       </View>
@@ -59,13 +89,16 @@ type MovieCardProps = {
 };
 const MovieCard = ({ item, handleClick }: MovieCardProps) => {
   return (
-    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
+    <TouchableWithoutFeedback
+      style={{ padding: 10 }}
+      onPress={() => handleClick(item)}
+    >
       <Image
         source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-l8LYFUlYqmHEmvA1NgcIc7rIko7aQr_Zuw&s',
+          uri: image500(item?.poster_path),
         }}
         style={{
-          width: width * 0.5,
+          width: width * 0.9,
           height: height * 0.4,
           alignItems: 'center',
         }}

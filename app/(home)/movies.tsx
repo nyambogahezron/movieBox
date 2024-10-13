@@ -8,11 +8,11 @@ import {
   Platform,
   Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import {  theme } from '@/theme';
-import { router, Stack } from 'expo-router';
+import { router, Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import MovieCasts from '@/components/MovieCasts';
 import MovieList from '@/components/MovieList';
@@ -34,6 +34,17 @@ export default function MovieScreen() {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [cast, setCast] = useState([1, 2, 3, 4]);
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4]);
+ const { item } = useLocalSearchParams();
+ const [parsedItem, setParsedItem] = useState(null);
+
+ useEffect(() => {
+   if (item) {
+     setParsedItem(JSON.parse(item as string));
+   }
+   console.log('item', item);
+ }, [item]);
+
+
 
   return (
     <SafeAreaView className='flex-1 bg-neutral-900'>
@@ -122,11 +133,11 @@ export default function MovieScreen() {
         <MovieCasts cast={cast} />
 
         {/* similar movies list  */}
-        <MovieList
+        {/* <MovieList
           title='Similar Movies'
           hideSeeAll={true}
           data={similarMovies}
-        />
+        /> */}
       </ScrollView>
       )}
     </SafeAreaView>

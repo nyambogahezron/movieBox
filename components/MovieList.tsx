@@ -10,18 +10,11 @@ import {
 import React from 'react';
 import { styles } from '@/theme';
 import { router } from 'expo-router';
-
+import { fallbackImage, image185 } from '@/api/movieDB';
+import { MovieListProps } from '@/types';
 const { width, height } = Dimensions.get('window');
 
-interface MovieListProps {
-  title: string;
-  data: any[];
-  hideSeeAll?: boolean;
-}
-
 const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
-  const movieName = 'Movie name';
-
   return (
     <View className='mb-8 space-y-4'>
       <View className='mx-4 flex-row justify-between items-center'>
@@ -37,7 +30,7 @@ const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
 
       {/* movie row  */}
       <ScrollView
-      scrollIndicatorInsets={{ right: 1 }}
+        scrollIndicatorInsets={{ right: 1 }}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
@@ -56,15 +49,15 @@ const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
             <View>
               <Image
                 source={{
-                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3KtsQGuRcs9FYnOGb2OuzwWFShhAQSqSpdQ&s',
+                  uri: image185(item?.poster_path || fallbackImage),
                 }}
                 className='rounded-lg'
                 style={{ width: width * 0.33, height: height * 0.22 }}
               />
               <Text className='text-neutral-300 ml-1'>
-                {movieName.length > 14
-                  ? movieName.slice(0, 14) + '...'
-                  : movieName}
+                {item.title.length > 14
+                  ? item.title.slice(0, 14) + '...'
+                  : item.title}
               </Text>
             </View>
           </TouchableWithoutFeedback>
