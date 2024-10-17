@@ -22,8 +22,8 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
 
   const handleClick = ({ item }: { item: any }) => {
     router.push({
-      pathname: '/movies',
-      params: { item: JSON.stringify(item) },
+      pathname: '/(home)/movies',
+      params: { item: JSON.stringify(item.id) },
     });
   };
 
@@ -47,8 +47,8 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
       } as const);
 
   return (
-    <View className='mb-4 -'>
-      <Text className='text-white text-xl mx-4 mb-5'>Trending</Text>
+    <View className='mb-4'>
+      <Text className='text-white text-xl mx-4 mt-1 '>Trending Now</Text>
       <View
         className='w-full pb-4 items-center justify-center'
         style={{ width: width }}

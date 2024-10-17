@@ -1,21 +1,28 @@
 import axios from 'axios';
 
 const apiKey = process.env.MOVIE_DB_API_KEY;
-const apiBaseUrl = process.env.apiBaseUrl;
-const baseImageUrl = process.env.baseImageUrl;
+
+const apiBaseUrl = 'https://api.themoviedb.org/3';
+const baseImageUrl = 'https://image.tmdb.org/t/p/';
 
 // Endpoints
 const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
 
+// dynamic endpoints
+export const movieDetailsEndpoint = (id: number) =>
+  `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
+
+export const movieCreditsEndpoint = (id: number) =>
+  `${apiBaseUrl}/movie/${id}/credits?api_key=${apiKey}`;
+
+export const similarMoviesEndpoint = (id: number) =>
+  `${apiBaseUrl}/movie/${id}/similar?api_key=${apiKey}`;
+
 // Image URL
 export const image500 = (path: string | null | undefined): string => {
   return path ? `${baseImageUrl}/w500${path}` : '';
-};
-
-export const imageOriginal = (path: string | null | undefined): string => {
-  return path ? `${baseImageUrl}/original${path}` : '';
 };
 
 export const image342 = (path: string | null | undefined): string => {
@@ -36,7 +43,7 @@ export const fallbackImage =
   'https://www.movienewz.com/img/films/poster-holder.jpg';
 
 export const fallbackProfileImage =
-  'https://www.movienewz.com/img/films/poster-holder.jpg';
+  'https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png';
 
 // API call
 async function apiCall(endpoint: string, params: any) {
@@ -66,4 +73,18 @@ export async function getUpcomingMovies() {
 
 export async function getTopRatedMovies() {
   return apiCall(topRatedMoviesEndpoint, null);
+}
+
+// API calls for movie details, credits and similar movies
+
+export async function getMovieDetails(id: any) {
+  return apiCall(movieDetailsEndpoint(id), null);
+}
+
+export async function getMovieCredits(id: number) {
+  return apiCall(movieCreditsEndpoint(id), null);
+}
+
+export async function getSimilarMovies(id: number) {
+  return apiCall(similarMoviesEndpoint(id), null);
 }

@@ -41,20 +41,20 @@ const MovieList = ({ title, data, hideSeeAll }: MovieListProps) => {
             onPress={() =>
               router.push({
                 pathname: '/(home)/movies',
-                params: { item: JSON.stringify(item) },
+                params: { item: JSON.stringify(item.id) },
               })
             }
-            className='p-1 border border-gray-600'
+            className='p-1 border border-gray-600 '
           >
             <View>
               <Image
                 source={{
                   uri: image185(item?.poster_path || fallbackImage),
                 }}
-                className='rounded-lg'
+                className='rounded-lg ml-2'
                 style={{ width: width * 0.33, height: height * 0.22 }}
               />
-              <Text className='text-neutral-300 ml-1'>
+              <Text className='text-neutral-300 ml-1 mt-1 text-[12px]'>
                 {item.title.length > 14
                   ? item.title.slice(0, 14) + '...'
                   : item.title}

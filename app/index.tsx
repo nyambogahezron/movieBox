@@ -1,13 +1,8 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {  ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  Bars3CenterLeftIcon,
-  MagnifyingGlassIcon,
-} from 'react-native-heroicons/outline';
 import TrendingMovies from '@/components/TrendingMovies';
 import MovieList from '@/components/MovieList';
-import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '@/components/LoadingScreen';
 import {
@@ -61,43 +56,7 @@ const HomeScreen = () => {
       }}
     >
       <StatusBar backgroundColor='#1D2125' style='light' />
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: '#1D2125',
-          },
-          headerShown: true,
-          headerTitleAlign: 'center',
-          headerShadowVisible: false,
-          headerTitle: (props) => (
-            <View {...props}>
-              <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
-                <Text className='text-[#eab308]'>M</Text>
-                ovie Trend
-              </Text>
-            </View>
-          ),
-          headerTitleStyle: {
-            color: '#eab308',
-            fontSize: 26,
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => router.back()}
-              className=' bg-opacity-50 rounded-lg p-1 py-2 '
-            >
-              <Bars3CenterLeftIcon size='30' strokeWidth={2} color='white' />
-            </TouchableOpacity>
-          ),
 
-          headerRight: () => (
-            <TouchableOpacity onPress={() => router.push('/(home)/search')}>
-              <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
-            </TouchableOpacity>
-          ),
-        }}
-      />
       {loading ? (
         <>
           <LoadingScreen />
@@ -107,6 +66,7 @@ const HomeScreen = () => {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
+          className='-mt-8'
         >
           {/* trending movies carousel */}
           {trendingData.length > 0 && <TrendingMovies data={trendingData} />}
