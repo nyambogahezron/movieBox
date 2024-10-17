@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const apiKey = process.env.MOVIE_DB_API_KEY;
-
+const apiKey = process.env.MOVIEAPIKEY;
 const apiBaseUrl = 'https://api.themoviedb.org/3';
 const baseImageUrl = 'https://image.tmdb.org/t/p/';
 
@@ -11,14 +10,23 @@ const upcomingMoviesEndpoint = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
 
 // dynamic endpoints
-export const movieDetailsEndpoint = (id: number) =>
+export const movieDetailsEndpoint = (id: number): string =>
   `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
 
-export const movieCreditsEndpoint = (id: number) =>
+export const movieCreditsEndpoint = (id: number): string =>
   `${apiBaseUrl}/movie/${id}/credits?api_key=${apiKey}`;
 
-export const similarMoviesEndpoint = (id: number) =>
+export const similarMoviesEndpoint = (id: number): string =>
   `${apiBaseUrl}/movie/${id}/similar?api_key=${apiKey}`;
+
+export const personDetailsEndpoint = (id: number): string =>
+  `${apiBaseUrl}/person/${id}?api_key=${apiKey}`;
+
+export const personMovieCreditsEndpoint = (id: number): string =>
+  `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
+
+export const searchMoviesEndpoint = (query: string): string =>
+  `${apiBaseUrl}/search/movie?api_key=${apiKey}&query=${query}`;
 
 // Image URL
 export const image500 = (path: string | null | undefined): string => {
@@ -87,4 +95,16 @@ export async function getMovieCredits(id: number) {
 
 export async function getSimilarMovies(id: number) {
   return apiCall(similarMoviesEndpoint(id), null);
+}
+
+export async function getPersonDetails(id: number) {
+  return apiCall(personDetailsEndpoint(id), null);
+}
+
+export async function getPersonMovieCredits(id: number) {
+  return apiCall(personMovieCreditsEndpoint(id), null);
+}
+
+export async function searchMovies(query: any) {
+  return apiCall(searchMoviesEndpoint(query), null);
 }

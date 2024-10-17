@@ -7,22 +7,47 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router, Stack } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import MovieList from '@/components/MovieList';
 import LoadingScreen from '@/components/LoadingScreen';
+import {
+  fallbackProfileImage,
+  getPersonDetails,
+  getPersonMovieCredits,
+  image185,
+} from '@/api/movieDB';
 
 var { width, height } = Dimensions.get('window');
 const ios = Platform.OS == 'ios';
+const verticalMargin = ios ? '' : 'my-3';
 
 export default function CastScreen() {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [personalMovies, setPersonalMovies] = useState([1, 2, 3, 4]);
-  const verticalMargin = ios ? '' : 'my-3';
+  const [personalDetails, setPersonalDetails] = useState({});
+  const [personalMovies, setPersonalMovies] = useState([]);
+  const { item } = useLocalSearchParams();
+
+  async function fetchPersonalDetails(id: any) {
+    const data = await getPersonDetails(id);
+    if (data) setPersonalDetails(data);
+  }
+
+  async function fetchPersonalMovies(item: any) {
+    const data = await getPersonMovieCredits(item);
+    if (data && data.cast) setPersonalMovies(data.cast);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    fetchPersonalDetails(item);
+    fetchPersonalMovies(item);
+    setLoading(false);
+  }, []);
 
   return (
     <ScrollView
@@ -69,7 +94,9 @@ export default function CastScreen() {
             <View className='overflow-hidden rounded-full h-72 w-72 border-2 border-neutral-500'>
               <Image
                 source={{
-                  uri: 'https://assets.teenvogue.com/photos/5aa1aac7bc935d60fac02d01/master/pass/originals-tout.jpg',
+                  uri:
+                    image185(personalDetails?.profile_path) ||
+                    fallbackProfileImage,
                 }}
                 className='rounded-full h-24 w-20'
                 style={{ height: height * 0.43, width: width * 0.75 }}
@@ -78,39 +105,51 @@ export default function CastScreen() {
           </View>
           <View className='mt-6'>
             <Text className='text-3xl text-white font-bold text-center'>
-              John Doe
+              {personalDetails?.name}
             </Text>
             <Text className='text-base text-neutral-500 f text-center'>
-              Kenya
+              {personalDetails?.place_of_birth}
             </Text>
           </View>
           <View className='mx-3 p-4 mt-6 flex-row justify-between items-center bg-neutral-700 rounded-lg overflow-hidden'>
             <View className='border-r-2 border-neutral-400 px-2 items-center'>
-              <Text className='text-2xl text-white font-bold text-center'>
+              <Text className='text-lg text-white font-bold text-center'>
                 Gender
               </Text>
-              <Text className='text-neutral-300 text-sm'>Male</Text>
+              <Text className='text-neutral-300 text-sm'>
+                {' '}
+                {personalDetails?.gender == 1 ? 'Female' : 'Male'}
+              </Text>
             </View>
             <View className='border-r-2 border-neutral-400 px-2 items-center'>
-              <Text className='text-2xl text-white font-bold text-center'>
+              <Text className='text-lg text-white font-bold text-center'>
                 Birthday
               </Text>
-              <Text className='text-neutral-300 text-sm'>04-08-1990</Text>
+              <Text className='text-neutral-300 text-sm'>
+                {personalDetails?.birthday}
+              </Text>
+            </View>
+            <View className='border-r-2 border-neutral-400 px-2 items-center'>
+              <Text className='text-lg text-white font-bold text-center'>
+                Popularity
+              </Text>
+              <Text className='text-neutral-300 text-sm'>
+                {personalDetails?.popularity}%
+              </Text>
             </View>
             <View className=' px-2 items-center'>
-              <Text className='text-2xl text-white font-bold text-center'>
+              <Text className='text-lg text-white font-bold text-center'>
                 Know For
               </Text>
-              <Text className='text-neutral-300 text-sm'>Acting,Singer</Text>
+              <Text className='text-neutral-300 text-sm'>
+                {personalDetails?.known_for_department}
+              </Text>
             </View>
           </View>
           <View className='my-6 mx-4 space-y-2'>
             <Text className='text-wite text-lg text-white'>Biography</Text>
             <Text className='text-neutral-400 tracking-wide'>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut id
-              iusto ut. Placeat delectus soluta iure assumenda nobis accusamus
-              est quam velit, voluptas autem beatae commodi, dignissimos, quidem
-              at modi!
+              {personalDetails?.biography || 'No biography available'}
             </Text>
           </View>
 

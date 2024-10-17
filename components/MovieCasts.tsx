@@ -7,8 +7,6 @@ import { fallbackProfileImage, image185 } from '@/api/movieDB';
 type MovieCastsProps = { cast: any };
 
 export default function MovieCasts({ cast }: MovieCastsProps) {
-  const castName = 'John Doe';
-  const characterName = 'John Doe';
   return (
     <View className='my-6'>
       <Text className='text-white text-lg mx-4 mb-5'>Movie Casts</Text>
@@ -24,7 +22,7 @@ export default function MovieCasts({ cast }: MovieCastsProps) {
                 onPress={() =>
                   router.push({
                     pathname: '/(home)/cast',
-                    params: { item: JSON.stringify(person) },
+                    params: { item: JSON.stringify(person.id) },
                   })
                 }
                 className='mr-4 items-center'

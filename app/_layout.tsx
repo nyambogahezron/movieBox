@@ -36,6 +36,7 @@ const RootLayout = () => {
           headerShown: true,
           headerTitleAlign: 'center',
           headerShadowVisible: false,
+          headerBackButtonMenuEnabled: false,
           headerTitle: (props) => (
             <View {...props}>
               <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
