@@ -19,7 +19,6 @@ const HomeScreen = () => {
 
   const fetchTrendingMoves = async () => {
     const data = await getTrendingMovies();
-    // console.log('trending movies data', data);
     if (data && data.results) {
       setTrendingData(data.results);
       setLoading(false);

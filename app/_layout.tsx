@@ -41,7 +41,7 @@ const RootLayout = () => {
             <View {...props}>
               <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
                 <Text className='text-primary'>M</Text>
-                ovie <Text className='text-primary'>Trend</Text>
+                ovie <Text className='text-primary'>Trends</Text>
               </Text>
             </View>
           ),
