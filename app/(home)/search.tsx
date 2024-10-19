@@ -2,16 +2,15 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   ScrollView,
   TouchableWithoutFeedback,
   Image,
   Dimensions,
 } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { XMarkIcon } from 'react-native-heroicons/outline';
-import { router, Stack } from 'expo-router';
+import { Link, router, Stack } from 'expo-router';
 import LoadingScreen from '@/components/LoadingScreen';
 import { fallbackImage, image185, searchMovies } from '@/api/movieDB';
 
@@ -19,9 +18,11 @@ const { width, height } = Dimensions.get('window');
 
 export default function SearchScreen() {
   const [loading, setLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<any>([]);
+  const [query, setQuery] = useState('');
 
   const handleSearch = async (query: string) => {
+    setQuery(query);
     if (query.length > 3) {
       setLoading(true);
 
@@ -40,7 +41,6 @@ export default function SearchScreen() {
     }
   };
 
-  // const handleTextDebounce = useCallback(debounce(handleSearch, 500), []);
   return (
     <SafeAreaView className='bg-neutral-900 flex-1'>
       <Stack.Screen options={{ headerShown: false }} />
@@ -51,12 +51,9 @@ export default function SearchScreen() {
           className='pb-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider'
           onChangeText={(text) => handleSearch(text)}
         />
-        <TouchableOpacity
-          onPress={() => router.push('/')}
-          className='rounded-full p-2 m-1 bg-neutral-500'
-        >
+        <Link href='/' className='rounded-full p-2 m-1 bg-neutral-500'>
           <XMarkIcon size='22' color='white' />
-        </TouchableOpacity>
+        </Link>
       </View>
 
       {/* search result  */}
@@ -77,7 +74,7 @@ export default function SearchScreen() {
               </Text>
               <View className='flex-row justify-between flex-wrap'>
                 {searchResults &&
-                  searchResults.map((item, index) => {
+                  searchResults.map((item: any, index: number) => {
                     return (
                       <TouchableWithoutFeedback
                         key={index}
@@ -111,14 +108,12 @@ export default function SearchScreen() {
               </View>
             </ScrollView>
           ) : (
-            <View className='flex-row justify-center'>
-              {/* <Image
-                source={{
-                  uri: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/22/The-vampire-diaries-season-2-dvd_558x754.jpg/250px-The-vampire-diaries-season-2-dvd_558x754.jpg',
-                }}
-                className='h-96 w-96'
-              /> */}
-              <Text className='text-white'>No results found</Text>
+            <View className='flex-row justify-center items-center flex-1'>
+              <Text className='text-white text-2xl font-bold -mt-20'>
+                {query.length <= 0
+                  ? 'Type to start search'
+                  : 'No results found'}
+              </Text>
             </View>
           )}
         </>

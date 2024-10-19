@@ -28,7 +28,7 @@ const verticalMargin = ios ? '' : 'my-3';
 export default function CastScreen() {
   const [loading, setLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [personalDetails, setPersonalDetails] = useState({});
+  const [personalDetails, setPersonalDetails] = useState<any>({});
   const [personalMovies, setPersonalMovies] = useState([]);
   const { item } = useLocalSearchParams();
 

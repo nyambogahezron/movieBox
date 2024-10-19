@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiKey = process.env.MOVIEAPIKEY;
+const apiKey = process.env.MOVIE_API_KEY;
 const apiBaseUrl = 'https://api.themoviedb.org/3';
 const baseImageUrl = 'https://image.tmdb.org/t/p/';
 

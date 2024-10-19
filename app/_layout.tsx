@@ -1,10 +1,13 @@
 import { useFonts } from 'expo-font';
-import { router, SplashScreen, Stack } from 'expo-router';
+import { Link, router, SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline';
+import {
+  Bars3CenterLeftIcon,
+  MagnifyingGlassIcon,
+} from 'react-native-heroicons/outline';
 SplashScreen.preventAutoHideAsync(); //prevent splash screen from auto hiding till fonts are loaded
 
 const RootLayout = () => {
@@ -60,9 +63,9 @@ const RootLayout = () => {
           ),
 
           headerRight: () => (
-            <TouchableOpacity onPress={() => router.push('/(home)/search')}>
+            <Link href='/(home)/search'>
               <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
-            </TouchableOpacity>
+            </Link>
           ),
         }}
       />

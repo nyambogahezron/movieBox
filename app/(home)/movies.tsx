@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import { HeartIcon } from 'react-native-heroicons/solid';
 import { theme } from '@/theme';
-import { router, Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import MovieCasts from '@/components/MovieCasts';
 import MovieList from '@/components/MovieList';
