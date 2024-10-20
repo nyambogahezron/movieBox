@@ -11,12 +11,22 @@
       },
       "ios": {
         "image": "latest"
+      },
+      "env": {
+        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+       "env": {
+        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
+      }
     },
-    "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
+      }
+    }
   },
   "submit": {
     "production": {}
