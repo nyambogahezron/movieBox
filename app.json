@@ -38,8 +38,15 @@
       },
       "eas": {
         "projectId": "ab8ef381-0599-403e-912b-c1def8243448"
-      }
+      },
+      "EXPO_PUBLIC_MOVIE_API_KEY": "process.env.EXPO_PUBLIC_MOVIE_API_KEY"
     },
-    "owner": "hezron"
+    "owner": "hezron",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ab8ef381-0599-403e-912b-c1def8243448"
+    }
   }
 }
