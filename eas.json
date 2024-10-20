@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 10.2.1"
+    "version": ">= 10.2.1",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -11,20 +12,31 @@
       },
       "ios": {
         "image": "latest"
-      },
-      "env": {
-        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
       }
     },
     "preview": {
-      "distribution": "internal",
-       "env": {
-        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
+      "android": {
+        "buildType": "apk"
       }
     },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "preview4": {
+      "distribution": "internal"
+    },
     "production": {
-      "env": {
-        "EXPO_PUBLIC_MOVIE_API_KEY": "ebb2bbcfa21e551c6f3f4a042501815d"
+      "autoIncrement": true,
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
       }
     }
   },
