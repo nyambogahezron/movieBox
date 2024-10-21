@@ -4,10 +4,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { Text, TouchableOpacity, View } from 'react-native';
-import {
-  Bars3CenterLeftIcon,
-  MagnifyingGlassIcon,
-} from 'react-native-heroicons/outline';
+import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
 SplashScreen.preventAutoHideAsync(); //prevent splash screen from auto hiding till fonts are loaded
 
 const RootLayout = () => {
@@ -44,7 +41,7 @@ const RootLayout = () => {
             <View {...props}>
               <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
                 <Text className='text-primary'>M</Text>
-                ovie <Text className='text-primary'>T</Text>rends
+                ovie <Text className='text-primary'>Trends</Text>
               </Text>
             </View>
           ),
@@ -56,9 +53,9 @@ const RootLayout = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => router.back()}
-              className=' bg-opacity-50 rounded-lg p-1 py-2 '
+              className='h-10 w-10 rounded-full shadow-inner shadow-white border border-gray-50 items-center justify-center'
             >
-              <Bars3CenterLeftIcon size='30' strokeWidth={2} color='white' />
+              <Text className='text-primary font-bold text-2xl'>M</Text>
             </TouchableOpacity>
           ),
 

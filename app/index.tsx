@@ -1,5 +1,5 @@
-import { ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { RefreshControl, ScrollView } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TrendingMovies from '@/components/TrendingMovies';
 import MovieList from '@/components/MovieList';
@@ -16,6 +16,7 @@ const HomeScreen = () => {
   const [trendingData, setTrendingData] = useState([]);
   const [upcomingData, setUpcomingData] = useState([]);
   const [topRatedData, setTopRatedData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchTrendingMoves = async () => {
     const data = await getTrendingMovies();
@@ -47,6 +48,16 @@ const HomeScreen = () => {
     fetchTopRatedMovies();
   }, []);
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchTrendingMoves();
+    fetchUpcomingMovies();
+    fetchTopRatedMovies();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   return (
     <SafeAreaView
       style={{
@@ -62,6 +73,13 @@ const HomeScreen = () => {
         </>
       ) : (
         <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={['#fff']}
+            />
+          }
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 10 }}
