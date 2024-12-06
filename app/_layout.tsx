@@ -5,7 +5,9 @@ import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { MagnifyingGlassIcon } from 'react-native-heroicons/outline';
-SplashScreen.preventAutoHideAsync(); //prevent splash screen from auto hiding till fonts are loaded
+import './global.css';
+
+SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   // load fonts
@@ -41,7 +43,7 @@ const RootLayout = () => {
             <View {...props}>
               <Text style={{ color: '#fff', fontSize: 26, fontWeight: 'bold' }}>
                 <Text className='text-primary'>M</Text>
-                ovie <Text className='text-primary'>Trends</Text>
+                ovie <Text className='text-primary'>Threads</Text>
               </Text>
             </View>
           ),
